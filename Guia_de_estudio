@@ -1,0 +1,51 @@
+Pentest de aplicaciones WEB.
+    -SQLi
+    -XSS
+    -XXE
+    -SSRF
+    -LFI
+    -RDI
+    -XPath injection
+    -LDAP injection
+    
+Pentest sobre linux.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Identificación de exploits
+    -Troubleshooting
+    -Escalación de privilegios
+    -Pivoting
+    -BufferOverflow (x86,x64)
+    
+Pentest sobre windows.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Identificación de exploits
+    -Troubleshooting
+    -Escalación de privilegios
+    -Pivoting
+    -BufferOverflow (x86,x64)
+    
+Pentest sobre Active Directory.
+    -Herramientas
+    -Descubrimiento de puertos
+    -Información de versiones
+    -Enumeración
+    -Ataques a Active Directory
+    
+Ataque a contraseñas.
+    -Crackeado con Jhon
+    -Crackeado con Hashcat
+    -Rainbow tables
+    -Creación de diccionarios
+    
+Documentación.
+    -Estructura informe
+    -Lenguaje ejecutivo
+    -Lenguaje técnico
+    -Footprint
+    -Evidencia
