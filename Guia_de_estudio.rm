@@ -61,6 +61,16 @@ Pentest sobre windows.
     -Descubrimiento de puertos
     -Información de versiones
     -Enumeración
+        -Enumerar usuarios:
+            net user
+        -Enumerar parches instalados:
+            wmic qfe get Caption,Description,HotFixID,InstalledOn
+        -Enumerar sistema en general:
+            systeminfo
+        -Enumerar estado de Windows Defender(Powershell):
+            (Get-Service windefend).Status
+        -Enumerar servicios activos:
+            wmic service list brief | findstr "Running"
     -Identificación de exploits
     -Troubleshooting
     -Escalación de privilegios
