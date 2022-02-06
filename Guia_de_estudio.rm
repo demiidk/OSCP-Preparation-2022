@@ -74,6 +74,9 @@ Pentest sobre windows.
     -Identificación de exploits
     -Troubleshooting
     -Escalación de privilegios
+        -DLL Hijacking: Es posible secuestrar la inclusión de una DLL no encontrada por un servicio. Utilizando herramientas como ProcMon, podemos verificar si existe alguna DLL no encontrada en la ejecución de un servicio. En caso de existir y poseer permisos de modificación sobre el directorio en cuestión, podemos incluir una DLL maliciosa para escalar o migrar de privilegios.
+        -Unquoted path service: Es posible abusar de servicios mal referenciados, dada la forma en la que Windows busca los binarios dentro de un directorio de servicio y dado que las carpetas de Windows utilizan espacios, Windows intenta añadir el sufijo .exe a cada palabra dentro de un path.
+            Ejemplo: C:\Program Files\Servicio Vulnerable\Ruta del binario\Binario.exe -> Windows intentará a añador el .exe a cada sección, dejando la ejecución: C:\Program Files\Servicio.exe, C:\Program Files\Servicio Vulnerable\Ruta.exe, C:\Program Files\Servicio Vulnerable\Ruta del binario\Binario.exe. Es necesario aclarar que es necesario contar con permisos de escritura algun direcotrio para poder incluir el binario malicioso.
     -Pivoting
     -BufferOverflow (x86,x64)
     
