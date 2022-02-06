@@ -20,6 +20,11 @@ Herramientas generales:
 
 
 Pentest de aplicaciones WEB.
+    -Fuzzing: Técnica utilizada para enumerar directorios o ficheros existentes en el sitio web.
+        -Wfuzz:
+            Fuzzing de directorios: wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://1.1.1.1/FUZZ
+            Fuzzing de subdominios: wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H 'Host: FUZZ.dominio.com' http://dominio.com
+            Fuzzing de ficheros(Añadir extensión al final): wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://1.1.1.1/FUZZ.txt
     -SQLi
         -Error based SQLi: Inyección basada en romper la estructura de la query para visualizar el error, entender la consulta y alterar la misma.
         Posibles payloads a probar: ' ) - ( , . ; : { } 
