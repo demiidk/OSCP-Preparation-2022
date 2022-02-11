@@ -52,17 +52,26 @@ Pentest de aplicaciones WEB.
     
 Pentest sobre linux.
     -Herramientas
+        -linPEAS: Es una herramienta de enumeración e identificación con fines de encontrar posibles vias para escalar privilegios.
     -Descubrimiento de puertos
     -Información de versiones
     -Enumeración
+        -Sistema operativo: uname -a
+        -Interfaces de red: ip a / ifconfig / 
+        -Puertos abiertos de forma local: netstat -anp / ss -lntu / cat /proc/net/tcp | awk '{print $2}' / cat /proc/net/udp | awk '{print $2}'
+        -Endpoints asociados: cat /etc/hosts
+        
     -Identificación de exploits
     -Troubleshooting
     -Escalación de privilegios
+        -Binarios SUID conocidos: Abusando de ficheros que tienen el permiso SUID es posible ejecutar comandos en el contexto de root cuando root es el dueño. Utilizando páginas como https://gtfobins.github.io/ o https://book.hacktricks.xyz/ podemos verificar si los ficheros SUID conocidos cuentan con vulnerabilidades.
+        -Binarios SUID no conocidos: Es posible abusar de ficheros SUID 
     -Pivoting
     -BufferOverflow (x86,x64)
     
 Pentest sobre windows.
     -Herramientas
+        -winPEAS: Es una herramienta de enumeración e identificación con fines de econtrar posibles vias para escalar privilegios.
     -Descubrimiento de puertos
     -Información de versiones
     -Enumeración
