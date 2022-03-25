@@ -110,10 +110,17 @@ Pentest sobre windows.
 Pentest sobre Active Directory.
     -Herramientas
         -Bloodhound: Herramienta utilizada para realizar la enumeración de usuarios y grupos, asi como de posibles vectores para escalar privilegios. Bloodhound utilizada Neo4j para visualizar de forma gráfica los resultados.
-            Ejemplo: SharpHound.ps1 Invoke-BloodHound -CollectionMethod All
+            Ejemplo #1: SharpHound.ps1 Invoke-BloodHound -CollectionMethod All
             Ejemplo #2 evitando alertas de enumeración de sesiones: SharpHound.exe Invoke-BloodHound -CollectionMEthod All -ExcludeDomainControllers
         -PowerSploit: PowerSploit es un conjunto de herramientas escritas en powershell que posee multiples funciones para enumerar distintos atributos y caracteristicas del dominio utilizando el usuario autenticado que ejecuta los procesos.
+            Ejemplo #1 enumerar OU's: Get-DomainOU.
+            Ejemplo #2 enumerar GPO's: Get-DomainGPO.
+            Ejemplo #3 enumerar GPO aplicada a una OU: Get-DomainGPO -Identity '{FCE16496-C744-4E46-AC89-2D01D76EAD68}'
+            Ejemplo #4 enumerar forest local del dominio: Get-Forest.
+            Ejemplo #5 enumerar confianza entre dominos: Get-DomainTrust.
         -InviShell: InviShell es una herramienta que permite esconder otras herramientas basadas en powershell, permite evadir restricciónes de ejecución y detección.
+            Ejemplo no privilegiado: ./RunWithRegistryNonAdmin.bat -> . ./PowerView.ps1
+            Ejemplo privilegiado: ./RunWithPathAsAdmin.bat -> . ./PowerView.ps1
     -Descubrimiento de puertos
     -Información de versiones
     -Enumeración
