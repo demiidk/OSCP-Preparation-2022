@@ -103,11 +103,17 @@ Pentest sobre windows.
                     ========================================= ================================================================== ========
                     SeImpersonatePrivilege                    Impersonate a client after authentication                          Enabled
         -Credenciales en memoria: Utilizando software como Mimikatz es posible extraer credenciales que se encuentren almacenadas en memoría.
+        -Exploit locales.
     -Pivoting
     -BufferOverflow (x86,x64)
     
 Pentest sobre Active Directory.
     -Herramientas
+        -Bloodhound: Herramienta utilizada para realizar la enumeración de usuarios y grupos, asi como de posibles vectores para escalar privilegios. Bloodhound utilizada Neo4j para visualizar de forma gráfica los resultados.
+            Ejemplo: SharpHound.ps1 Invoke-BloodHound -CollectionMethod All
+            Ejemplo #2 evitando alertas de enumeración de sesiones: SharpHound.exe Invoke-BloodHound -CollectionMEthod All -ExcludeDomainControllers
+        -PowerSploit: PowerSploit es un conjunto de herramientas escritas en powershell que posee multiples funciones para enumerar distintos atributos y caracteristicas del dominio utilizando el usuario autenticado que ejecuta los procesos.
+        -InviShell: InviShell es una herramienta que permite esconder otras herramientas basadas en powershell, permite evadir restricciónes de ejecución y detección.
     -Descubrimiento de puertos
     -Información de versiones
     -Enumeración
