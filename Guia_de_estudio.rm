@@ -116,8 +116,8 @@ Pentest sobre Active Directory.
             Ejemplo #1 enumerar OU's: Get-DomainOU.
             Ejemplo #2 enumerar GPO's: Get-DomainGPO.
             Ejemplo #3 enumerar GPO aplicada a una OU: Get-DomainGPO -Identity '{FCE16496-C744-4E46-AC89-2D01D76EAD68}'
-            Ejemplo #4 enumerar forest local del dominio: Get-Forest.
-            Ejemplo #5 enumerar confianza entre dominos: Get-DomainTrust.
+            Ejemplo #4 enumerar forest local del dominio: Get-Forest | (Get-ADForest).Domains
+            Ejemplo #5 enumerar confianza entre dominos: Get-DomainTrust | Get-ADTrust -Filter *
         -InviShell: InviShell es una herramienta que permite esconder otras herramientas basadas en powershell, permite evadir restricciónes de ejecución y detección.
             Ejemplo no privilegiado: ./RunWithRegistryNonAdmin.bat -> . ./PowerView.ps1
             Ejemplo privilegiado: ./RunWithPathAsAdmin.bat -> . ./PowerView.ps1
