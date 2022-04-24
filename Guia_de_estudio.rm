@@ -107,8 +107,8 @@ Pentest sobre windows.
             -Enumerar privilegios heredados del usuario actual: whoami /priv
             -Enumerar detalles del sistema: systeminfo
         -Enumeracion de recursos compartidos utilizando null sessión.
-            -smbclient -L 192.168.10.10 -U ''
-            -smbmap 192.168.10.10 -N
+            -smbclient -L 192.168.10.10 -N
+            -smbmap -H 192.168.10.10 -u 'null'
 		-Enumeración de recursos compartidos utilizando un usuario válido.
 			-crackmapexec smb 192.168.10.10 -u user -p password --shares
 		-Enumeración de usuarios utilizando un usuario válido:
