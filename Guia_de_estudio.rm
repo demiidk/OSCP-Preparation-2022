@@ -137,7 +137,7 @@ Pentest sobre windows.
     -Pivoting
     -BufferOverflow (x86,x64)
     
-Pentest sobre Active Directory.
+Pentest sobre Active Directory (CRTE).
     -Herramientas
         -Bloodhound: Herramienta utilizada para realizar la enumeración de usuarios y grupos, asi como de posibles vectores para escalar privilegios. Bloodhound utilizada Neo4j para visualizar de forma gráfica los resultados.
             Ejemplo #1: SharpHound.ps1 Invoke-BloodHound -CollectionMethod All
@@ -156,7 +156,7 @@ Pentest sobre Active Directory.
         -InviShell: InviShell es una herramienta que permite esconder otras herramientas basadas en powershell, permite evadir restricciónes de ejecución y detección.
             Ejemplo no privilegiado (one liner desde CMD): 
                 a) RunWithRegistryNonAdmin.bat;et COR_ENABLE_PROFILING=1;set COR_PROFILER={cf0d821e-299b-5307-a3d8-b283c03916db} /f; reg add "HKCU\Software/Casses\CLSID\{cf0d821e-299b-5307-a3d8-b283c03916db}\InprocServer32" /f; REG ADD "HKCU\Software\Classes\CLSID\{cf0d821e-299b-5307-a3d8-b283c03916db}\InprocServer32" /ve /t REG_SZ /d "C:\AD\Tools\InviShell\InviShellProf.dll" /f; powershell
-         -ADModule: Modulos de Powershell que facilita la enumeración en entornos de Active Directory.
+		-ADModule: Modulos de Powershell que facilita la enumeración en entornos de Active Directory.
             Uso: Import-Module C:\Path\To\Microsoft.ActiveDirectory.Management.dll; Import-Module C:\Path\To\ActiveDirectory.psd1
             Ejemplo #1 enumerar Grupos a los que pertenece un usuario: Get-ADPrincipalGroupMembership -Identity USUARIO
             Ejemplo #2 enumerar Grupos a los que pertenece un grupo: Get-ADPrincipalGroupMembership -Identity GRUPO
